@@ -10,9 +10,9 @@ function EventDetails(props) {
 
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>NO Event Found</p>
-      </ErrorAlert>
+      <div className="center">
+        <p>loading...</p>
+      </div>
     );
   }
 
@@ -50,7 +50,7 @@ export async function getStaticPaths() {
   const paths = events.map((event) => ({ params: { eventId: event.id } }));
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
