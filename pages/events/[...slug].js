@@ -5,6 +5,7 @@ import ErrorAlert from "@/components/error-alert/error-alert";
 import EventList from "@/components/events/EventList";
 import ResultsTitle from "@/components/events/results-title";
 import Button from "@/components/ui/Button";
+import Head from "next/head";
 
 function FilterEventPage(props) {
   const [loadedEvents, setLoadedEvents] = useState();
@@ -16,7 +17,7 @@ function FilterEventPage(props) {
       try {
         if (!filteredData) return;
         const response = await axios.get(
-          `https://react-getting-6f97b-default-rtdb.firebaseio.com/events/.json`
+          `https://react-getting-6f97b-default-rtdb.firebaseio.com/events.json`
         );
 
         if (response.status !== 200) {
@@ -42,14 +43,29 @@ function FilterEventPage(props) {
     fetchData();
   }, [filteredData]);
 
-  if (!loadedEvents) {
-    return <p className="center">Loading...</p>;
-  }
   const filteredYear = filteredData[0];
   const filteredMonth = filteredData[1];
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
+  const pageMeatData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events of ${numMonth} ${numYear}`}
+      />
+    </Head>
+  );
+
+  if (!loadedEvents) {
+    return (
+      <>
+        {pageMeatData}
+        <p className="center">Loading...</p>
+      </>
+    );
+  }
 
   if (
     isNaN(numYear) ||
@@ -61,6 +77,7 @@ function FilterEventPage(props) {
   ) {
     return (
       <>
+        {pageMeatData}
         <ErrorAlert>
           <p>Please add vaild flter Invaild filter!</p>
         </ErrorAlert>
@@ -82,6 +99,7 @@ function FilterEventPage(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
+        {pageMeatData}
         <ErrorAlert>
           <p> No events founds for the Choosen Filter!</p>
         </ErrorAlert>
@@ -95,6 +113,7 @@ function FilterEventPage(props) {
   const date = new Date(numYear, numMonth - 1);
   return (
     <>
+      {pageMeatData}
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </>
