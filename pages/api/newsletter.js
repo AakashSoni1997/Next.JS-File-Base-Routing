@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
 async function fetchNewsLetter(req, res) {
-  let client; // Define the client variable outside the try block
+  let client;
 
   if (req.method === "POST") {
     const userEmail = req.body.email;

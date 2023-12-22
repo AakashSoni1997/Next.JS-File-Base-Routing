@@ -1,7 +1,5 @@
 export async function getAllEvents() {
-  const response = await fetch(
-    "https://react-getting-6f97b-default-rtdb.firebaseio.com/events.json"
-  );
+  const response = await fetch(process.env.FIREBASE_URI);
   const data = await response.json();
 
   const events = [];

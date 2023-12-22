@@ -19,3 +19,15 @@
 .comments button:active {
   background-color: #dcfff9;
 }
+
+.loading {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  font-weight: bold;
+  /* Add this line for bold text, adjust as needed */
+  color: #333;
+  /* Add this line for a custom text color, adjust as needed */
+}
